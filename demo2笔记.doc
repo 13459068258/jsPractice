@@ -1,0 +1,56 @@
+
+
+1、type="button"和type="submit"的区别？
+Submit是专门用于提交表单的Button，与Button的区别主要有两点：
+　　type=button 就单纯是按钮功能
+　　type=submit 是发送表单
+　　 (1)Submit将表单提交(form.submit())作为其onclick后的默认事件，Button并非如此
+　　 (2)表单提交时，所有具有name属性的html输入元素(包括input标签、button标签、select标签等)都将作为键值对提交，除了Submit对象。Submit对象只有在自己被单击后的提交中才会作为键值对被提交。
+　　但是对于从事WEB UI的人应该要注意到，使用submit来提高页面易用性：　　
+　　使用submit后，页面支持键盘enter键操作，而很多WEB软件设计师，可能没有注意到submit统一.　　
+　　用button后往往页面不支持enter键了。所以需要支持enter键，必须要设置个submit，默认enter键对页面第一个submit进行操作。　　
+　　执行完onClick，转到action。可以自动提交不需要onClick。所以说onclick这里可以不要　　
+　　执行完onClick，跳转文件在 js文件里控制。提交需要onClick。　　
+比如：
+　　onclick="form1.action='a.jsp';form1.submit();" 这样就实现了submit的功能了。　　
+　讲白一些，就是submit会有一个跳转，页面会刷新；而button不会刷新，就是一个button；可以用<button type="submit/button/reset"></button>来生成按钮，更加灵活，样式更好控制。 　
+
+2、js中const,var,let区别与用法
+（1）const定义的变量不可以修改，而且必须初始化。
+	
+
+（2）var定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+
+
+（3）let是块级作用域，函数内部使用let定义后，对函数外部无影响。
+
+
+3、querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
+4、textContent 属性设置或返回指定节点的文本内容，以及它的所有后代。
+如果您设置了 textContent 属性，会删除所有子节点，并被替换为包含指定字符串的一个单独的文本节点。
+5、HTML DOM backgroundColor 属性
+语法：Object.style.backgroundColor=color-name|color-rgb|color-hex|transparent
+6、js 中on和addEventLisenter的区别
+<div id='one'></div>
+
+jq : on 在绑定事件中
+
+var one = document.getElementById('one');
+
+one.on('click',function(){console.log(123)});
+
+one.on('click',function(){console.log(456)});
+
+控制台会输出456；可想而知，第二个覆盖了第一个函数。
+
+one.addEventListener('click',function(){console.log(123)});
+
+one.addEventListener('click',function(){console.log(456)});
+
+控制台会输出123，456. 说明addEventListener可以同时绑定多个事件。
+7.HTML DOM disabled 属性
+定义和用法
+disabled 属性可设置或返回是否禁用单选按钮。
+
+
+

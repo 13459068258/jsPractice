@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>猜数字游戏</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .form{
+        position: relative;
+        margin-left: 30%;
+    }
+</style>
+
+<body>
+    <h1>猜数字游戏</h1>
+    <p>随机选定一个100以内的自然数。看你能否在10次以内猜中它。</p>
+    <p>每次会告诉你所猜的结果是高了还是低了</p>
+
+    <div class="form">
+        <!-- <label> 标签为 input 元素定义标注（标记）。
+            label 元素不会向用户呈现任何特殊效果。不过，它为鼠标用户改进了可用性。如果您在 label 元素内点击文本，就会触发此控件。就是说，当用户选择该标签时，浏览器就会自动将焦点转到和标签相关的表单控件上。
+            <label> 标签的 for 属性应当与相关元素的 id 属性相同。 -->
+        <label for="guessField">猜猜数字</label>
+        <input type="text"  class="guessField">
+        <input type="submit" value="确定" class="guessSubmit">
+        </label>
+    </div>
+
+    <div class="resultParas">
+        <p class="guesses"></p>
+        <p class="lastResult"></p>
+        <p class="lowOrHi"></p>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1; //取随机数
+        console.log(randomNumber);
+        const guesses = document.querySelector('.guesses');
+        const lastResult = document.querySelector('.lastResult');
+        const lowOrHi = document.querySelector('.lowOrHi');
+
+        const guessSubmit = document.querySelector('.guessSubmit');
+        const guessField = document.querySelector('.guessField');
+
+        let guessCount = 1;
+        let resetButton;
+
+        function checkGuess() {
+            let userGuess = Number(guessField.value);//获得用户猜的数,将字符串转为数字类型
+            if (guessCount === 1) {
+                guesses.textContent = '上次猜的数：';
+            }
+
+            guesses.textContent += userGuess + ' ';
+
+            if (userGuess === randomNumber) {
+                lastResult.textContent = '恭喜你！猜对了！';
+                lastResult.style.backgroundColor = 'green';
+                lowOrHi.textContent = '';
+                setGameOver();
+            } else if (guesses === 10) {
+                lastResult.textContent = '游戏结束';
+                setGameOver();
+            } else {
+                lastResult.textContent = '你猜错了！';
+                lastResult.style.backgroundColor = 'red';
+                if (userGuess < randomNumber) {
+                    lowOrHi.textContent = '你猜低了！';
+                } else if (userGuess > randomNumber) {
+                    lowOrHi.textContent = '你猜高了';
+                }
+            }
+
+            guessCount++;
+            guessField.value = '';
+            guessField.focus();
+        }
+
+        guessSubmit.addEventListener('click', checkGuess);
+
+        function setGameOver() {
+            guessField.disabled = true;
+            guessSubmit.disabled = true;
+            resetButton = document.createElement('button');
+            resetButton.textContent = '开始新的游戏';
+            document.body.appendChild(resetButton);
+            resetButton.addEventListener('click',resetGame);
+        }
+
+        function resetGame() {
+            guessCount = 1;
+            // 清空
+            const resetParas = document.querySelectorAll('.resultParas p');
+            for (let i = 0; i < resetParas.length; i++) {
+                resetParas[i].textContent = '';
+            }
+            resetButton.parentNode.removeChild(resetButton);
+
+        guessField.disabled = false;
+        guessSubmit.disabled = false;
+        guessField.value = '';
+        guessField.focus();
+
+        lastResult.style.backgroundColor = 'white';
+
+        randomNumber = Math.floor(Math.random()*100 + 1) + 1;
+        console.log(randomNumber);
+
+        }
+
+        
+
+    </script>
+
+</body>
